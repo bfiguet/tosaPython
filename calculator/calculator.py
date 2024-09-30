@@ -1,34 +1,26 @@
+OP = ["+", "-", "*", "/", "//", "**", "%"]
+
 def calculator():
 	x = input ("Veuillez entrer le premier nombre : ")
-	if x.isdigit() == True:
-		y = input ("Veuillez entrer le deuxième nombre : ")
-	if y.isdigit() == True:
-		op = input ("Veuillez entrer l'opération à effectuer : ")
-		x = int(x)
-		y = int(y)
-	
-		if op == '+':
-			print(x + y)
-		elif op == '-':
-			print(x - y)
-		elif op == '*':
-			print(x * y)
-		elif op == '/':
-			print(x / y)
-		elif op == '**':
-			print(x ** y)
-		elif op == '//':
-			print(x // y)
-		else:
-			print("l'Opérateur n'est pas encore gérer.")
-	else:
-		print("Il y a eu une erreur de saisie.\n")
-	print("Merci pour votre participation!\n")
-	res = input("Avez-vous un autre calcul a effectuer?\n Entrez 'oui' sinon laissez vide: ")
-	if res == "oui":
+	y = input ("Veuillez entrer le deuxième nombre : ")
+	op = input ("Veuillez entrer l'opération à effectuer : ")
+	if op not in OP:
+		print(f"L'opérateur {op} n'est pas encore gérer.")
 		calculator()
+	
+	if x.isdigit() and y.isdigit():
+		print(eval(x + op + y))
 	else:
+		print("Veuillez saisir des nombres valides.\n")
+		calculator()
+
+	print("Merci pour votre participation!\n")
+	again = input("Avez-vous un autre calcul a effectuer?\n o/n: ")
+	if again == "n":
 		print("A Bientot!")	
+	else:
+		calculator()
+	
 
 print("Bienvenu à toi dans notre calculatrice")
 calculator()
