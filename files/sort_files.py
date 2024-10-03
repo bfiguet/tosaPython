@@ -6,18 +6,24 @@ DIC = {".mp3": "Musique", ".wav": "Musique", ".flac": "Musique",
 	   ".txt": "Documents", ".pptx": "Documents", ".csv": "Documents", ".xls": "Documents", ".odp": "Documents", ".pdf": "Documents", ".pages": "Documents"}
 
 def sort_files():
-	try:
-		BASE_DIR = Path('/home/bland/Bureau/tosaPython/files/data')
-		
-		files = [f for f in BASE_DIR.iterdir() if f.is_file()]
-		for file in files:
-			data = DIC.get(file.suffix, 'Divers')
-			data_path = BASE_DIR / data
-			data_path.mkdir(exist_ok=True)
-			file_path = data_path / file.name
-			file.rename(file_path)
-	except:
-		print("Error: 'data' directory not found")
+	
+	#Obtenir le chemin absolu du répertoire "data"
+	#BASE_DIR = Path('/home/bland/Bureau/tosaPython/files/data')
+	BASE_DIR = Path(__file__).parent.resolve()
+	source_dir = BASE_DIR / "data"
+	
+	#check if 'data' directory exist
+	if not source_dir.is_dir():
+		print(f"Error: 'data' directory not found in {BASE_DIR}")
+
+	files = [f for f in BASE_DIR.iterdir() if f.is_file()]
+	for file in files:
+		data = DIC.get(file.suffix, 'Divers')
+		data_path = BASE_DIR / data
+		data_path.mkdir(exist_ok=True)
+		file_path = data_path / file.name
+		file.rename(file_path)
+
 		
 
 #from os import makedirs, rename, getcwd, chdir
@@ -26,10 +32,6 @@ def sort_files():
 #VIDEO = [".avi", ".mp4", ".gif"]
 #IMAGES = [".bmp", ".png", ".jpg"]
 #DOCUMENTS = [".txt", ".pptx", ".csv", ".xls", ".odp", ".pdf", ".pages"]
-
-	## Obtenir le chemin absolu du répertoire "data"
-    #base_directory = Path(__file__).parent.resolve()
-    #source_directory = base_directory / "data"
 
 #def sort_files():
 #	try:
