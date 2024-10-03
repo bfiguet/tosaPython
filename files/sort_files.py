@@ -9,12 +9,13 @@ def sort_files():
 	
 	#Obtenir le chemin absolu du répertoire "data"
 	#BASE_DIR = Path('/home/bland/Bureau/tosaPython/files/data')
-	BASE_DIR = Path(__file__).parent.resolve()
-	source_dir = BASE_DIR / "data"
+	init_path = Path(__file__).parent.resolve()
+	BASE_DIR = init_path / "data"
 	
 	#check if 'data' directory exist
-	if not source_dir.is_dir():
-		print(f"Error: 'data' directory not found in {BASE_DIR}")
+	if not BASE_DIR.is_dir():
+		print(f"Error: 'data' directory not found in {init_path}")
+		return
 
 	files = [f for f in BASE_DIR.iterdir() if f.is_file()]
 	for file in files:
