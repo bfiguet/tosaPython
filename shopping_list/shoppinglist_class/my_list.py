@@ -4,7 +4,6 @@ import json
 
 CUR_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.join(CUR_DIR, "data")
-
 LOGGER = logging.getLogger()
 
 
@@ -12,6 +11,7 @@ class MyList(list):
     def __init__(self, name):
         self.name = name
         print(f'Your list "{self.name}" has been created successfully!')
+        logging.basicConfig(filename=f'{self.name}_logger.log', format='%(asctime)s %(message)s', encoding='utf-8')
 
     def your_choices(self):
         while True:
@@ -32,15 +32,17 @@ class MyList(list):
             elif choice == '5':
                 print("\nThank you for using our list generator!\n")
                 break
-            print("~" * 400)
+            print("~" * 40)
 
     def add_item(self, item):
-        if not isinstance(item, str):
-            LOGGER.error(f'\nYou can add only text not "{item}".\n')
+        if len(item) > 50:
+            print(f'\nYour text is too long".\n')
+            LOGGER.error(f'len > 20: "{item}"\n')
             return False
 
         if item in self:
-            LOGGER.error(f'\n"{item}" is already in list\n')
+            print(f'\n"{item}" is already in list\n')
+            LOGGER.error(f'item in self: "{item}"\n')
             return False
 
         self.append(item)
@@ -53,7 +55,8 @@ class MyList(list):
             self.remove(item)
             self.save_list()
             return True
-        LOGGER.error(f'\n"{item}" isn\'t in {self.name}.\n')
+        print(f'\n"{item}" isn\'t in {self.name}.\n')
+        LOGGER.error(f'item not in self: "{item}"\n')
         return False
 
     def print_list(self):
