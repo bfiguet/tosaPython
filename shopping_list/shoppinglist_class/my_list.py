@@ -11,7 +11,7 @@ class MyList(list):
     def __init__(self, name):
         self.name = name
         print(f'Your list "{self.name}" has been created successfully!')
-        logging.basicConfig(filename=f'{self.name}_logger.log', format='%(asctime)s %(message)s', encoding='utf-8')
+        logging.basicConfig(filename=f'{self.name}_logger.log', format='%(asctime)s %(message)s')
 
     def your_choices(self):
         while True:
